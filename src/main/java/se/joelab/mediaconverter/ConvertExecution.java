@@ -85,7 +85,11 @@ public class ConvertExecution {
                 .progress(new ProgressCallback<String>() {
                     @Override
                     public void onProgress(String progress) {
-                        System.out.print("\r"+progress);
+                        if (progress.startsWith("frame=")) {
+                            System.out.print("\r"+progress);
+                        } else {
+                            System.out.println(progress);
+                        }
                     }
                 })
                 .fail(new FailCallback<Throwable>() {
