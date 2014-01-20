@@ -12,6 +12,10 @@ angular.module('yoApp', [
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
+      .when('/medialist', {
+        templateUrl: 'views/medialist.html',
+        controller: 'MedialistCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
