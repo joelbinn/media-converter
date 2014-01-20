@@ -8,6 +8,7 @@
     <name>ui.media-converter</name>
 
     <build>
+        <finalName>mediaconv</finalName>
         <plugins>
             <plugin>
                 <groupId>com.github.trecloux</groupId>
