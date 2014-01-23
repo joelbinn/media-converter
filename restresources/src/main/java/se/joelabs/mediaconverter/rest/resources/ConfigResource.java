@@ -6,12 +6,14 @@ import org.mapdb.DBMaker;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ConcurrentNavigableMap;
@@ -45,19 +47,41 @@ public class ConfigResource {
         configuration.put("outputdir", Arrays.asList(dirName));
         db.commit();
         logger.fine("Saved outputdir=" + dirName);
-        return Response.ok("outputdir="+dirName).build();
+        return Response.ok().build();
     }
 
     @GET
     @Path("/outputdir")
-    @Produces("text/plain")
+    @Produces("application/json")
     public String getOutputDir() {
         List<String> dir = configuration.get("outputdir");
-        logger.fine("outputdir="+dir);
+        logger.fine("outputdir=" + dir);
         if (dir != null && dir.size() == 1) {
             return dir.get(0);
         } else {
             return null;
         }
+    }
+
+    @POST
+    @Path("/scandirs")
+    public Response addScanDir(@QueryParam("dirname") String dirName) {
+        List<String> dirs = configuration.get("scandirs");
+        if (dirs == null) {
+            dirs = new ArrayList<>();
+        }
+        configuration.put("scandirs", Arrays.asList(dirName));
+        db.commit();
+        logger.fine("Saved scandirs=" + dirs);
+        return Response.ok().build();
+    }
+
+    @GET
+    @Path("/scandirs")
+    @Produces("application/json")
+    public List<String> getScanDirs() {
+        List<String> dirs = configuration.get("scandirs");
+        logger.fine("scandirs=" + dirs);
+        return dirs;
     }
 }
