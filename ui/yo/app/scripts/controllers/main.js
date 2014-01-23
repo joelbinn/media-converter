@@ -10,6 +10,6 @@ angular.module('yoApp')
     $scope.pingBe = function () {
       $http.get('/mconvrest/ping').success(function (data) {
         $scope.beresponse = data;
-      })
-    }
+      });
+    };
   });

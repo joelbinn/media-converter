@@ -1,5 +1,5 @@
 
-package se.joelabs.mediaconverter.rest;
+package se.joelabs.mediaconverter.rest.resources;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

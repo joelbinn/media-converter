@@ -5,18 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>media-converter</groupId>
+        <groupId>se.joelabs</groupId>
         <artifactId>media-converter</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>0.9.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>rest.media-converter</artifactId>
     <packaging>war</packaging>
     <name>rest.media-converter</name>
-
-    <properties>
-        <jersey-version>1.8</jersey-version>
-    </properties>
 
     <dependencies>
         <dependency>
@@ -41,6 +37,12 @@
             <groupId>org.glassfish.embedded</groupId>
             <artifactId>gf-embedded-api</artifactId>
             <version>1.0-alpha-4</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
