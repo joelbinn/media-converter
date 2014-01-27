@@ -80,7 +80,10 @@ module.exports = function (grunt) {
             }
 
             // Setup the proxy
-            var middlewares = [require('grunt-connect-proxy/lib/utils').proxyRequest];
+            var middlewares = [function(req, res, options) {
+              req.headers.referer = '';
+              require('grunt-connect-proxy/lib/utils').proxyRequest(req, res, options);
+            }];
 
             // Serve static files.
             options.base.forEach(function(base) {
@@ -121,7 +124,25 @@ module.exports = function (grunt) {
           headers: {
             'x-custom-added-header': 'test'
           }
+        },
+        {
+          context: '/suggests/',
+          port: 80,
+          host: 'sg.media-imdb.com',
+          https: false,
+          changeOrigin: true,
+          xforward: false
+        },
+        {
+          context: '/images/',
+          port: 80,
+          host: 'ia.media-imdb.com',
+          https: false,
+          changeOrigin: true,
+          xforward: false
         }
+
+
       ]
     },
 

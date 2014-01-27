@@ -1,12 +1,13 @@
 'use strict';
 
 angular.module('yoApp', [
-  'ngCookies',
-  'ngResource',
-  'ngSanitize',
-  'ngRoute'
-])
-  .config(function ($routeProvider) {
+    'ngCookies',
+    'ngResource',
+    'ngSanitize',
+    'ngRoute',
+    'ngTable'
+  ])
+  .config(function ($routeProvider, $httpProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -19,4 +20,13 @@ angular.module('yoApp', [
       .otherwise({
         redirectTo: '/'
       });
+
+    $httpProvider.interceptors.push(function () {
+      return {
+        'request': function (config) {
+          //console.log('Request config: %o', config);
+          return config;
+        }
+      };
+    });
   });
