@@ -30,14 +30,14 @@ angular.module('yoApp')
     $scope.searchTerm = '';
     $scope.changeUrl = function (imageUrl) {
       if (imageUrl) {
-        return imageUrl.replace(/http:\/\/ia.media-imdb.com(.*)/, '$1');
+        return imageUrl.replace(/http:\/\/ia.media-imdb.com\/images\/(.*)/, '/mconvrest/imdb/image/$1');
       } else {
-        return 'http://i.media-imdb.com/images/mobile/film-40x54.png';
+        return '/images/film-40x54.png';
       }
     };
     $scope.$watch('searchTerm', function () {
       if ($scope.searchTerm && $scope.searchTerm.length > 0) {
-        $http.get('/suggests/' + $scope.searchTerm[0] + '/' + $scope.searchTerm.replace(' ', '_') + '.json')
+        $http.get('/mconvrest/imdb/suggests/' + $scope.searchTerm[0] + '/' + $scope.searchTerm.replace(' ', '_') + '.json')
           .success(function (data) {
             console.log('>>> Returned Data: %o', data);
             var match = data.match(/imdb\$[a-zA-Z0-9]*\((.*)\)$/);
@@ -82,6 +82,7 @@ angular.module('yoApp')
     $scope.abort = function() {
       $scope.selectedImdbItem = undefined;
       $scope.selectedMovie = undefined;
+      $scope.searchTerm = undefined;
     };
     $http.get('/mconvrest/movies')
       .success(function(movies) {

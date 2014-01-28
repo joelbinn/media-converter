@@ -116,33 +116,12 @@ module.exports = function (grunt) {
       proxies: [
         {
           context: '/mconvrest/',
-          host: '192.168.1.90',
+          host: 'localhost',
           port: 8080,
           https: false,
           changeOrigin: false,
-          xforward: false,
-          headers: {
-            'x-custom-added-header': 'test'
-          }
-        },
-        {
-          context: '/suggests/',
-          port: 80,
-          host: 'sg.media-imdb.com',
-          https: false,
-          changeOrigin: true,
-          xforward: false
-        },
-        {
-          context: '/images/',
-          port: 80,
-          host: 'ia.media-imdb.com',
-          https: false,
-          changeOrigin: true,
           xforward: false
         }
-
-
       ]
     },
 

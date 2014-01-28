@@ -1,26 +1,20 @@
 package se.joelabs.mediaconverter.rest.resources;
 
-import com.sun.xml.txw2.annotation.XmlAttribute;
 import org.mapdb.DB;
-import org.mapdb.DBMaker;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ConcurrentNavigableMap;
 import java.util.logging.Logger;
@@ -72,10 +66,10 @@ public class MoviesResource {
     }
 
     @PUT
-    @Path("/")
-    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Response updateMovie(Movie movie) {
-        if (movie.id == null) {
+    @Path("/{id}")
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response updateMovie(@PathParam("id") Long id, Movie movie) {
+        if (id == null) {
             Long nextId = Long.parseLong(metadata.get("nextId") != null ? metadata.get("nextId") : "1");
             movie.id = nextId;
             metadata.put("nextId", (nextId + 1) + "");
@@ -87,7 +81,7 @@ public class MoviesResource {
 
     @GET
     @Path("/")
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_JSON})
     public List<Movie> getMovies() {
         List<Movie> movieList = new ArrayList<>(movies.values());
         logger.fine("movieList=" + movieList);

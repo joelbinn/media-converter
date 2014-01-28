@@ -1,6 +1,7 @@
 package se.joelabs.restserver;
 
 import org.glassfish.grizzly.http.server.HttpServer;
+import org.glassfish.grizzly.http.server.StaticHttpHandler;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 
@@ -37,6 +38,7 @@ public class Main {
      */
     public static void main(String[] args) throws IOException {
         final HttpServer server = startServer();
+        //server.getServerConfiguration().addHttpHandler(new StaticHttpHandler("../ui/yo/app"));
         System.out.println(String.format("Jersey app started with WADL available at "
                                          + "%sapplication.wadl\nHit enter to stop it...", BASE_URI));
         System.in.read();
